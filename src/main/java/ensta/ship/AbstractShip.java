@@ -17,7 +17,7 @@ public abstract class AbstractShip{
 	public char getLabel(){
 		return this.label;
 	}
-	public String getString(){
+	public String getName(){
 		return this.name;
 	}
 	public int getSize(){
@@ -30,7 +30,7 @@ public abstract class AbstractShip{
 	public void setLabel(char label){
 		this.label = label;
 	}
-	public void getString(String name){
+	public void setName(String name){
 		this.name = name;
 	}
 	public void setSize(int size){

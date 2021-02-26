@@ -128,10 +128,8 @@ public class Board implements IBoard{
 			for (int j = 0 ; j < ship.size ; j++){
 				this.navires[x + b*i][y + a*j] = ship.label;
 				}
-			}
-			
+			}	
 		}
-
 	}
 
 	public boolean hasShip(int x, int y){
