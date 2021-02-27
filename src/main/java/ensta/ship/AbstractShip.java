@@ -12,6 +12,7 @@ public abstract class AbstractShip{
 		this.name = name;
 		this.size = size;
 		this.orientation = orientation;
+		this.strikeCount = 0;
 	}
 
 
@@ -43,13 +44,10 @@ public abstract class AbstractShip{
 
 
 	public void addStrike(){
-		strikeCount ++;
+		this.strikeCount ++;
 	}
 	public boolean isSunk(){
-		if ( strikeCount == size ){
-			return true;
-		}
-		return false;
+		return ( this.strikeCount == this.size );
 	}
 
 }

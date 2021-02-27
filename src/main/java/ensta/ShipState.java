@@ -27,11 +27,14 @@ public class ShipState {
 
 	public void addStrike(){
 		if (!this.struck){
-			this.ship.addStrike();
+			if(this.isShip){
+				this.struck = true;
+				this.ship.addStrike();
+			}
 		}else{
-			System.out.println("Position déjà endommagé.");
+			System.out.println("Position déjà endommagée.");
 		}
-		this.struck = true;
+		
 	}
 
 	public boolean isStruck(){

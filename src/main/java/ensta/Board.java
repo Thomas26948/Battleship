@@ -17,7 +17,7 @@ public class Board implements IBoard{
 			for ( int j = 0 ; j < N ; j++ ){
 				this.navires[i][j] = new ShipState();
 				// this.navires[i][j].setStruck(false);
-				// this.navires[i][j].setIsShip(false);
+				this.navires[i][j].setIsShip(false);
 				this.frappes[i][j] = null;
 			}
 		}
@@ -72,7 +72,7 @@ public class Board implements IBoard{
 		int a = coef[0];
 		int b = coef[1];
 		int n = this.navires.length;
-		if( x + b * (ship.size -1) > n || y + a * (ship.size -1) > n || x + b * (ship.size -1) < 0 || y + a * (ship.size -1) < 0 ){
+		if( x + b * (ship.size -1) > n -1|| y + a * (ship.size -1) > n -1|| x + b * (ship.size -1) < 0 || y + a * (ship.size -1) < 0 ){
 			return false;
 		}
 		for (int i = 0; i < ship.size ; i++){
@@ -133,14 +133,13 @@ public class Board implements IBoard{
 	}
 
 	public boolean hasShip(int x, int y){
-		return this.navires[x][y].getIsShip();
+		return this.navires[x+1][y].getIsShip();
 
 	}
 
 	public void setHit(boolean hit, int x, int y){
-		if (hit){
-			this.frappes[x][y]= true;
-		}
+		this.frappes[x][y]= hit;
+		
 	}
 	public Boolean getHit(int x, int y){
 		return this.navires[x][y].ship.label != '.';
@@ -197,6 +196,23 @@ public class Board implements IBoard{
 			System.out.println();
 
 		}
+	}
+
+	public Hit sendHit(int x, int y){
+		if (navires[x+1][y+1].getIsShip()){
+            this.navires[x+1][y+1].addStrike();
+            if (navires[x+1][y+1].isSunk()){
+            	System.out.println("Navire coulé : " + navires[x+1][y+1].ship.getName());
+                return Hit.fromInt(navires[x+1][y+1].getShip().getSize());
+            }
+            if (navires[x+1][y+1].isStruck()){
+                return Hit.STRIKE;
+            }else{
+                return Hit.MISS;
+            }
+        }else{
+            return Hit.MISS;
+        }
 	}
 
 }

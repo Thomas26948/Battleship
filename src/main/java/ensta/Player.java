@@ -41,16 +41,20 @@ public class Player {
             System.out.println(msg);
             InputHelper.ShipInput res = InputHelper.readShipInput();
 
-            // TODO set ship orientation
-            Orientation input_orientation = getOrientation(res.orientation);
-            s.setOrientation(input_orientation);
+            if ( (res.x >-2 ) && ( res.x < board.getSize() ) && ( res.y >-2 ) && ( res.y < board.getSize() ) ){
+                // TODO set ship orientation
+                Orientation input_orientation = getOrientation(res.orientation);
+                s.setOrientation(input_orientation);
 
-            // TODO put ship at given position
-            if( board.canPutShip(s,res.y+1,res.x) ) {
-                board.putShip(s,res.y+1,res.x);
-            // TODO when ship placement successful
+                // TODO put ship at given position
+                if( board.canPutShip(s,res.y+1,res.x) ) {
+                    board.putShip(s,res.y+1,res.x);
+                // TODO when ship placement successful
                 ++i;
+                }
+
             }
+           
 
             done = i == 5;
 
@@ -71,21 +75,30 @@ public class Player {
         }
     }
 
-    // public Hit sendHit(int[] coords) {
-    //     boolean done;
-    //     Hit hit = null;
+    public Hit sendHit(int[] coords) {
+        boolean done;
+        Hit hit = null;
+        done = false;
+        do {
+            System.out.println("où frapper?");
+            InputHelper.CoordInput hitInput = InputHelper.readCoordInput();
+            // TODO call sendHit on this.opponentBoard
 
-    //     do {
-    //         System.out.println("où frapper?");
-    //         InputHelper.CoordInput hitInput = InputHelper.readCoordInput();
-    //         // TODO call sendHit on this.opponentBoard
+            hit = this.opponentBoard.sendHit(hitInput.y,hitInput.x-1);
+            // TODO : Game expects sendHit to return BOTH hit result & hit coords.
+            // return hit is obvious. But how to return coords at the same time ?
+            coords[0] = hitInput.x;
+            coords[1] = hitInput.y;
+            if(hit != Hit.MISS){
+                this.board.setHit(true, hitInput.y+1,hitInput.x);
+            }else{
+                this.board.setHit(false, hitInput.y+1,hitInput.x);
+            }
+            done = true;
+        } while (!done);
 
-    //         // TODO : Game expects sendHit to return BOTH hit result & hit coords.
-    //         // return hit is obvious. But how to return coords at the same time ?
-    //     } while (!done);
-
-    //     return hit;
-    // }
+        return hit;
+    }
 
     public AbstractShip[] getShips() {
         return ships;

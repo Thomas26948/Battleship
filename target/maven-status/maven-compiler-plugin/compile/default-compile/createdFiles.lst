@@ -1,6 +1,7 @@
 ensta/Player.class
 ensta/Board.class
 ensta/ship/Destroyer.class
+ensta/Hit.class
 ensta/ship/Submarine.class
 ensta/InputHelper.class
 ensta/IBoard.class

@@ -23,35 +23,31 @@ public class App
         perso_board.print();
 
         List<AbstractShip> ships=new ArrayList<AbstractShip>();
-        Destroyer ship1 = new Destroyer('D', "Destroyer 1", 3, Orientation.NORTH);
+        Destroyer ship1 = new Destroyer('D', "Destroyer 1", 2, Orientation.NORTH);
         ships.add(ship1);
         Submarine ship2 = new Submarine('S', "Submarine 1", 3, Orientation.NORTH);
         ships.add(ship2);
         Submarine ship3 = new Submarine('S', "Submarine 2", 3, Orientation.NORTH);
         ships.add(ship3);
-        Battleship ship4 = new Battleship('B', "Battleship 1", 3, Orientation.NORTH);
+        Battleship ship4 = new Battleship('B', "Battleship 1", 4, Orientation.NORTH);
         ships.add(ship4);
-        Carrier ship5 = new Carrier('C', "Carrier 1", 3, Orientation.NORTH);
+        Carrier ship5 = new Carrier('C', "Carrier 1", 5, Orientation.NORTH);
         ships.add(ship5);
 
         // System.out.print(ColorUtil.colorize("Hello world wwi oaho", ColorUtil.Color.RED));
 
         Player player1 = new Player(perso_board,oppo_board,ships);
         player1.putShips();
+        Player player2 = new Player(oppo_board,perso_board,ships);
+        player2.putShips();
+        int[] coords = new int[2];
 
-        // tab.setHit(true, 2,2);
-        // tab.setHit(true, 5,4);
-        // tab.setHit(true, 8,3);
-        // Orientation test = Orientation.WEST;
-        // Orientation test2 = Orientation.NORTH;
-
-        // Destroyer ship = new Destroyer('D', "D1", 5, test);
-        // Destroyer ship3 = new Destroyer('A', "D1", 4, test2);
-
-        // tab.putShip(ship,3,3);
-        // tab.print();
-        // tab.putShip(ship3,4,3);
-        // tab.print();
-
+        while(true){
+        	player1.sendHit(coords);
+        perso_board.print();
+        oppo_board.print();
+        }
+        
+        
     }
 }
