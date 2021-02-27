@@ -10,5 +10,8 @@ ensta/ship/Orientation.class
 ensta/InputHelper$ShipInput.class
 ensta/ship/AbstractShip.class
 ensta/Board$1.class
+ensta/ColorUtil.class
+ensta/ShipState.class
 ensta/ship/Battleship.class
+ensta/ColorUtil$Color.class
 ensta/ship/Carrier.class

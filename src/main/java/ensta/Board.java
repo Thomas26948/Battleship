@@ -1,40 +1,40 @@
 package ensta;
 
-import ensta.ship.AbstractShip;
-import ensta.ship.Battleship;
-import ensta.ship.Carrier;
-import ensta.ship.Destroyer;
-import ensta.ship.Orientation;
-import ensta.ship.Submarine;
+import ensta.ship.*;
 
 
 public class Board implements IBoard{
 	private String name;
-	private char[][] navires;
-	private boolean[][] frappes;
+	private ShipState[][] navires;
+	private Boolean[][] frappes;
 
 
 	public Board(String name,int N){
 		this.name = name;
-		this.navires = new char[N][N];
-		this.frappes = new boolean[N][N];
+		this.navires = new ShipState[N][N];
+		this.frappes = new Boolean[N][N];
 		for ( int i = 0 ; i < N ; i++ ){
 			for ( int j = 0 ; j < N ; j++ ){
-				this.navires[i][j] = '.';
-				this.frappes[i][j] = false;
+				this.navires[i][j] = new ShipState();
+				// this.navires[i][j].setStruck(false);
+				// this.navires[i][j].setIsShip(false);
+				this.frappes[i][j] = null;
 			}
 		}
 	}	
 
 	public Board(String name){
 		this.name = name;
-		this.navires = new char[10][10];
-		this.frappes = new boolean[10][10];
+		this.navires = new ShipState[10][10];
+		this.frappes = new Boolean[10][10];
 		int N = 10;
 		for ( int i = 0 ; i < N ; i++ ){
 			for ( int j = 0 ; j < N ; j++ ){
-				this.navires[i][j] = '.';
-				this.frappes[i][j] = false;
+				// this.navires[i][j] = '.';
+				// this.navires[i][j].setStruck(false);
+				this.navires[i][j] = new ShipState();
+				// this.navires[i][j].setIsShip(false);
+				this.frappes[i][j] = null;
 			}
 		}
 	}
@@ -43,10 +43,10 @@ public class Board implements IBoard{
 		return this.name;
 	}
 
-	public char[][] getNavires(){
+	public ShipState[][] getNavires(){
 		return this.navires;
 	}
-	public boolean[][] getFrappes(){
+	public Boolean[][] getFrappes(){
 		return this.frappes;
 	}
 
@@ -54,11 +54,11 @@ public class Board implements IBoard{
 		this.name = name;
 	}
 
-	public void setNavires(char[][] navires){
+	public void setNavires(ShipState[][] navires){
 		this.navires = navires;
 	}
 
-	public void setFrappes(boolean[][] frappes){
+	public void setFrappes(Boolean[][] frappes){
 		this.frappes = frappes;
 	}
 
@@ -77,7 +77,7 @@ public class Board implements IBoard{
 		}
 		for (int i = 0; i < ship.size ; i++){
 			for (int j = 0 ; j < ship.size ; j++){
-				if (this.navires[x + b*i][y + a*j] != '.'){
+				if (this.navires[x + b*i][y + a*j].getIsShip()){
 					System.out.println("Impossible de placer le bateau.");
 					return false;
 				}
@@ -126,14 +126,14 @@ public class Board implements IBoard{
 		if (canPut){
 			for (int i = 0; i < ship.size ; i++){
 			for (int j = 0 ; j < ship.size ; j++){
-				this.navires[x + b*i][y + a*j] = ship.label;
+				this.navires[x + b*i][y + a*j].setShip(ship);
 				}
 			}	
 		}
 	}
 
 	public boolean hasShip(int x, int y){
-		return this.navires[x][y] != '.';
+		return this.navires[x][y].getIsShip();
 
 	}
 
@@ -143,7 +143,7 @@ public class Board implements IBoard{
 		}
 	}
 	public Boolean getHit(int x, int y){
-		return this.navires[x][y] != '.';
+		return this.navires[x][y].ship.label != '.';
 	}
 
 
@@ -173,12 +173,20 @@ public class Board implements IBoard{
 			for ( int k = 0 ; k < 2 ; k++){
 				for (int j = 0 ; j < N ; j++){
 					if (k == 0 ){
-						System.out.print(this.navires[i][j] + " ");
+						// if (this.navires[i][j].getIsShip()){
+						// 	System.out.print(this.navires[i][j].ship.label + " ");
+						System.out.print(this.navires[i][j].toString());
+						// }else{
+						// 	System.out.print("." + " ");
+						// }
+						
 					}else if ( k == 1){
-						if (this.frappes[i][j] == false){
-							System.out.print(". ");
-						}else{
-							System.out.print("X ");
+						if (this.frappes[i][j] == null){
+							System.out.print(ColorUtil.colorize(". ", ColorUtil.Color.WHITE));
+						}else if (this.frappes[i][j] == false){
+							System.out.print(ColorUtil.colorize("X ", ColorUtil.Color.WHITE));
+						}else if (this.frappes[i][j] == true){
+							System.out.print(ColorUtil.colorize("X ", ColorUtil.Color.RED));
 						}
 						
 					}

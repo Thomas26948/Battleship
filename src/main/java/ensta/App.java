@@ -23,17 +23,18 @@ public class App
         perso_board.print();
 
         List<AbstractShip> ships=new ArrayList<AbstractShip>();
-        Destroyer ship1 = new Destroyer('D', "D1", 3, Orientation.NORTH);
+        Destroyer ship1 = new Destroyer('D', "Destroyer 1", 3, Orientation.NORTH);
         ships.add(ship1);
-        Submarine ship2 = new Submarine('S', "S1", 3, Orientation.NORTH);
+        Submarine ship2 = new Submarine('S', "Submarine 1", 3, Orientation.NORTH);
         ships.add(ship2);
-        Submarine ship3 = new Submarine('S', "S2", 3, Orientation.NORTH);
+        Submarine ship3 = new Submarine('S', "Submarine 2", 3, Orientation.NORTH);
         ships.add(ship3);
-        Battleship ship4 = new Battleship('B', "B1", 3, Orientation.NORTH);
+        Battleship ship4 = new Battleship('B', "Battleship 1", 3, Orientation.NORTH);
         ships.add(ship4);
-        Carrier ship5 = new Carrier('C', "C1", 3, Orientation.NORTH);
+        Carrier ship5 = new Carrier('C', "Carrier 1", 3, Orientation.NORTH);
         ships.add(ship5);
 
+        // System.out.print(ColorUtil.colorize("Hello world wwi oaho", ColorUtil.Color.RED));
 
         Player player1 = new Player(perso_board,oppo_board,ships);
         player1.putShips();

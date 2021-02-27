@@ -1,12 +1,13 @@
 package ensta.ship;
 
 public abstract class AbstractShip{
-	public char label;
+	public Character label;
 	public String name;
 	public int size;
 	public Orientation orientation;
+	public int strikeCount;
 
-	public AbstractShip(char label, String name, int size, Orientation orientation){
+	public AbstractShip(Character label, String name, int size, Orientation orientation){
 		this.label = label;
 		this.name = name;
 		this.size = size;
@@ -14,7 +15,7 @@ public abstract class AbstractShip{
 	}
 
 
-	public char getLabel(){
+	public Character getLabel(){
 		return this.label;
 	}
 	public String getName(){
@@ -27,7 +28,7 @@ public abstract class AbstractShip{
 		return this.orientation;
 	}
 
-	public void setLabel(char label){
+	public void setLabel(Character label){
 		this.label = label;
 	}
 	public void setName(String name){
@@ -41,6 +42,14 @@ public abstract class AbstractShip{
 	}
 
 
-
+	public void addStrike(){
+		strikeCount ++;
+	}
+	public boolean isSunk(){
+		if ( strikeCount == size ){
+			return true;
+		}
+		return false;
+	}
 
 }
