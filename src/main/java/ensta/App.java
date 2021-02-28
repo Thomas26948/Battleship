@@ -15,12 +15,28 @@ public class App
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+        System.out.println( "Battleship Game !" );
+        System.out.println( "" );
 
+
+
+        //To play against an AI : 
+        Game jeu = new Game();
+        jeu.init();
+        jeu.run();
+
+
+        //In order to test BattleShipsAI, uncomment the following lines :
+        /*
         TestGame testgame = new TestGame();
         testgame.gameRun();
+		*/
 
-        
+
+
+
+        //In order to test the game between 2 players , uncomment the following lines :
+
         // Board perso_board = new Board("My board",9);
         // Board oppo_board = new Board("Opponent board",9);
 

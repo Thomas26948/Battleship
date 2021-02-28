@@ -16,7 +16,6 @@ public class Board implements IBoard{
 		for ( int i = 0 ; i < N ; i++ ){
 			for ( int j = 0 ; j < N ; j++ ){
 				this.navires[i][j] = new ShipState();
-				// this.navires[i][j].setStruck(false);
 				this.navires[i][j].setIsShip(false);
 				this.frappes[i][j] = null;
 			}
@@ -30,10 +29,7 @@ public class Board implements IBoard{
 		int N = 10;
 		for ( int i = 0 ; i < N ; i++ ){
 			for ( int j = 0 ; j < N ; j++ ){
-				// this.navires[i][j] = '.';
-				// this.navires[i][j].setStruck(false);
 				this.navires[i][j] = new ShipState();
-				// this.navires[i][j].setIsShip(false);
 				this.frappes[i][j] = null;
 			}
 		}
@@ -73,22 +69,18 @@ public class Board implements IBoard{
 		int b = coef[1];
 		int n = this.navires.length;
 		if( (x + b * (ship.size -1)) > n-1 || (y + a * (ship.size -1)) > n -1|| (x + b * (ship.size -1)) < 0 || (y + a * (ship.size -1)) < 0 ){
-			// System.out.println("Impossible de placer le bateau..");
-
 			return false;
 		}else{
 
-		for (int i = 0; i < ship.size ; i++){
-			for (int j = 0 ; j < ship.size ; j++){
-				if (this.navires[x + b*i][y + a*j].getIsShip()){
-					// System.out.println("Impossible de placer le bateau.");
-					return false;
-				}
+			for (int i = 0; i < ship.size ; i++){
+				for (int j = 0 ; j < ship.size ; j++){
+					if (this.navires[x + b*i][y + a*j].getIsShip()){
+						return false;
+					}
+				}	
 			}
-			
+			return true;
 		}
-		return true;
-	}
 	}
 
 	/**
@@ -177,12 +169,7 @@ public class Board implements IBoard{
 			for ( int k = 0 ; k < 2 ; k++){
 				for (int j = 0 ; j < N ; j++){
 					if (k == 0 ){
-						// if (this.navires[i][j].getIsShip()){
-						// 	System.out.print(this.navires[i][j].ship.label + " ");
 						System.out.print(this.navires[i][j].toString());
-						// }else{
-						// 	System.out.print("." + " ");
-						// }
 						
 					}else if ( k == 1){
 						if (this.frappes[i][j] == null){
@@ -204,8 +191,7 @@ public class Board implements IBoard{
 	}
 
 	public Hit sendHit(int x, int y){
-
-	if (navires[x][y].getIsShip()){
+		if (navires[x][y].getIsShip()){
             this.navires[x][y].addStrike();
             if (navires[x][y].isSunk()){
             	System.out.println("Navire coulé : " + navires[x][y].ship.getName());
@@ -219,22 +205,6 @@ public class Board implements IBoard{
         }else{
             return Hit.MISS;
         }
-
-		// if (navires[x+1][y+1].getIsShip()){
-  //           this.navires[x+1][y+1].addStrike();
-  //           if (navires[x+1][y+1].isSunk()){
-  //           	System.out.println("Navire coulé : " + navires[x+1][y+1].ship.getName());
-  //               return Hit.fromInt(navires[x+1][y+1].getShip().getSize());
-  //           }
-  //           if (navires[x+1][y+1].isStruck()){
-  //               return Hit.STRIKE;
-  //           }else{
-  //               return Hit.MISS;
-  //           }
-  //       }else{
-  //           return Hit.MISS;
-  //       }
-	}
-
+    }
 }
 

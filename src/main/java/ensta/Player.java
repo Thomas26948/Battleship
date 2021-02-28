@@ -83,18 +83,30 @@ public class Player {
             System.out.println("où frapper?");
             InputHelper.CoordInput hitInput = InputHelper.readCoordInput();
             // TODO call sendHit on this.opponentBoard
+            if (hitInput.x > -1 && hitInput.y +1 > -1 && hitInput.x < this.board.getSize() && hitInput.y +1 < this.board.getSize() ){
 
-            hit = this.opponentBoard.sendHit(hitInput.y,hitInput.x-1);
-            // TODO : Game expects sendHit to return BOTH hit result & hit coords.
-            // return hit is obvious. But how to return coords at the same time ?
-            coords[0] = hitInput.x;
-            coords[1] = hitInput.y;
-            if(hit != Hit.MISS){
-                this.board.setHit(true, hitInput.y+1,hitInput.x);
+                if (this.board.getFrappes()[hitInput.y+1][hitInput.x] == null){
+                    hit = this.opponentBoard.sendHit(hitInput.y+1,hitInput.x);
+                    // TODO : Game expects sendHit to return BOTH hit result & hit coords.
+                    // return hit is obvious. But how to return coords at the same time ?
+                    coords[0] = hitInput.x;
+                    coords[1] = hitInput.y;
+                    if(hit != Hit.MISS){
+                        this.board.setHit(true, hitInput.y+1,hitInput.x);
+                    }else{
+                        this.board.setHit(false, hitInput.y+1,hitInput.x);
+                    }
+                    done = true;
+                }else{
+                    System.out.println("Position déjà endommagée");
+                }
+
+                
+
             }else{
-                this.board.setHit(false, hitInput.y+1,hitInput.x);
+                System.out.println("Erreur, entrez une position valide");
             }
-            done = true;
+            
         } while (!done);
 
         return hit;
