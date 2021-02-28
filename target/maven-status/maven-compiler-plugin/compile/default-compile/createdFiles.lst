@@ -5,6 +5,7 @@ ensta/Hit.class
 ensta/ship/Submarine.class
 ensta/InputHelper.class
 ensta/IBoard.class
+ensta/TestGame.class
 ensta/App.class
 ensta/InputHelper$CoordInput.class
 ensta/ship/Orientation.class
@@ -16,3 +17,4 @@ ensta/ShipState.class
 ensta/ship/Battleship.class
 ensta/ColorUtil$Color.class
 ensta/ship/Carrier.class
+ensta/BattleShipsAI.class

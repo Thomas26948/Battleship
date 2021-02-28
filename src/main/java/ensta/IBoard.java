@@ -23,6 +23,15 @@ public interface IBoard {
     void putShip(AbstractShip ship, int x, int y);
 
     /**
+    * return if a ship can be put on a position
+    * @param ship The ship to place on the board
+    * @param x
+    * @param y
+    */
+    boolean canPutShip(AbstractShip ship, int x, int y);
+
+
+    /**
      * Get if a ship is placed at the given position
      * @param x
      * @param y

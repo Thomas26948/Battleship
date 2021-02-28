@@ -72,19 +72,23 @@ public class Board implements IBoard{
 		int a = coef[0];
 		int b = coef[1];
 		int n = this.navires.length;
-		if( x + b * (ship.size -1) > n -1|| y + a * (ship.size -1) > n -1|| x + b * (ship.size -1) < 0 || y + a * (ship.size -1) < 0 ){
+		if( (x + b * (ship.size -1)) > n-1 || (y + a * (ship.size -1)) > n -1|| (x + b * (ship.size -1)) < 0 || (y + a * (ship.size -1)) < 0 ){
+			// System.out.println("Impossible de placer le bateau..");
+
 			return false;
-		}
+		}else{
+
 		for (int i = 0; i < ship.size ; i++){
 			for (int j = 0 ; j < ship.size ; j++){
 				if (this.navires[x + b*i][y + a*j].getIsShip()){
-					System.out.println("Impossible de placer le bateau.");
+					// System.out.println("Impossible de placer le bateau.");
 					return false;
 				}
 			}
 			
 		}
 		return true;
+	}
 	}
 
 	/**
@@ -133,7 +137,8 @@ public class Board implements IBoard{
 	}
 
 	public boolean hasShip(int x, int y){
-		return this.navires[x+1][y].getIsShip();
+		return this.navires[x][y].getIsShip();
+
 
 	}
 
@@ -142,7 +147,7 @@ public class Board implements IBoard{
 		
 	}
 	public Boolean getHit(int x, int y){
-		return this.navires[x][y].ship.label != '.';
+		return this.frappes[x][y];
 	}
 
 
@@ -199,13 +204,14 @@ public class Board implements IBoard{
 	}
 
 	public Hit sendHit(int x, int y){
-		if (navires[x+1][y+1].getIsShip()){
-            this.navires[x+1][y+1].addStrike();
-            if (navires[x+1][y+1].isSunk()){
-            	System.out.println("Navire coulé : " + navires[x+1][y+1].ship.getName());
-                return Hit.fromInt(navires[x+1][y+1].getShip().getSize());
+
+	if (navires[x][y].getIsShip()){
+            this.navires[x][y].addStrike();
+            if (navires[x][y].isSunk()){
+            	System.out.println("Navire coulé : " + navires[x][y].ship.getName());
+                return Hit.fromInt(navires[x][y].getShip().getSize());
             }
-            if (navires[x+1][y+1].isStruck()){
+            if (navires[x][y].isStruck()){
                 return Hit.STRIKE;
             }else{
                 return Hit.MISS;
@@ -213,6 +219,21 @@ public class Board implements IBoard{
         }else{
             return Hit.MISS;
         }
+
+		// if (navires[x+1][y+1].getIsShip()){
+  //           this.navires[x+1][y+1].addStrike();
+  //           if (navires[x+1][y+1].isSunk()){
+  //           	System.out.println("Navire coulé : " + navires[x+1][y+1].ship.getName());
+  //               return Hit.fromInt(navires[x+1][y+1].getShip().getSize());
+  //           }
+  //           if (navires[x+1][y+1].isStruck()){
+  //               return Hit.STRIKE;
+  //           }else{
+  //               return Hit.MISS;
+  //           }
+  //       }else{
+  //           return Hit.MISS;
+  //       }
 	}
 
 }
